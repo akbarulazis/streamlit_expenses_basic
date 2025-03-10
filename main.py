@@ -18,14 +18,14 @@ def load_categories_csv():
             categories_class.set_budget_first_time = row['set_budget_first_time']
             all_categories[categories_name] = categories_class
         return all_categories
-    except FileNotFoundError:
+    except (FileNotFoundError,  pd.errors.EmptyDataError):
         return {}
 
 def load_expenses_csv():
     try:
         expenses = pd.read_csv('expenses.csv')
         return expenses.to_dict('records')
-    except FileNotFoundError:
+    except (FileNotFoundError, pd.errors.EmptyDataError):
         return []
     
 
